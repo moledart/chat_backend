@@ -1,8 +1,8 @@
-import express from "express";
-import { PrismaClient } from "@prisma/client";
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
-export const app = express();
+const app = express();
 
 app.get("/", (req, res) => {
   res.send("Hey this is my API running");
@@ -49,3 +49,5 @@ app.get("/", (req, res) => {
 // });
 
 app.listen(3000, () => console.log(`🚀 Server ready at: 3000`));
+
+module.exports = app;
