@@ -11,16 +11,19 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  messages Message[]
+  id                Int       @id @default(autoincrement())
+  name              String    @unique
+  Messages_recieved Message[] @relation("recieved")
+  Messages_sent     Message[] @relation("sent")
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  theme     String   @db.VarChar(255)
-  content   String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  theme       String   @db.VarChar(255)
+  content     String?  @db.Text
+  author      User     @relation("sent", fields: [authorId], references: [id])
+  authorId    Int
+  recipient   User     @relation("recieved", fields: [recipientId], references: [id])
+  recipientId Int
 }
